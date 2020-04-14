@@ -1,5 +1,6 @@
 library(shiny)
 library(httr)
+library(jsonlite)
 
 # Your SurveyCTO login information
 username <- 'user@company.org'
@@ -28,13 +29,13 @@ server <- function(input, output) {
   url <- paste0('https://<YOUR SERVER>.surveycto.com/api/v2/forms/data/wide/json/', formID, '?date=', date)
   
   # Make API request
-  my_request <- GET(url, authenticate(username, credential, type='digest'))
+  my_request <- GET(url, authenticate(username, credential))
 
   # retrieve the contents of a request as a character vector
   my_request_txt <- content(my_request, 'text')
 
   # convert from JSON data to R object
-  data <- fromJSON(data, flatten = T)
+  data <- fromJSON(my_request_txt, flatten = T)
   
   my_plot <- function(data){
    
