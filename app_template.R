@@ -40,6 +40,7 @@ server <- function(input, output) {
   my_plot <- function(data){
    
     # Make your plot here
+    # See plot examples at https://www.r-graph-gallery.com/
      
   }
   
